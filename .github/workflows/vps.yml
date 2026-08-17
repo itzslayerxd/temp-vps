@@ -8,25 +8,5 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-      - name: Install SSH and tmate
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y openssh-server tmate
-
-      - name: Start SSH
-        run: |
-          sudo systemctl enable ssh
-          sudo systemctl start ssh
-
-      - name: Start tmate
-        run: |
-          tmate -S /tmp/tmate.sock new-session -d
-          tmate -S /tmp/tmate.sock wait tmate-ready
-          echo "=============================="
-          echo "SSH CONNECTION:"
-          tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}'
-          echo "=============================="
-          echo "WEB SHELL:"
-          tmate -S /tmp/tmate.sock display -p '#{tmate_web}'
-          echo "=============================="
-          tmate -S /tmp/tmate.sock wait-for-client
+      - name: Start VPS SSH
+        uses: mxschmitt/action-tmate@v3
